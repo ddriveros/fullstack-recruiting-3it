@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  email: string;
-  categorias: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { email: 'test@test.cl', categorias:'Jazz, Otros' },
-  { email: 'danny@test.cl', categorias:'Rock, Otros' },
-];
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EntrevistaMusica } from 'src/app/models/EntrevistaMusica';
+import { EncuestaMusicaService } from 'src/app/services/encuesta-musica.service';
 
 @Component({
   selector: 'app-table',
@@ -18,11 +12,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TableComponent implements OnInit {
 
   displayedColumns: string[] = ['email', 'categorias'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MatTableDataSource<EntrevistaMusica>;
+  service: EncuestaMusicaService;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private encuestaMusicaService: EncuestaMusicaService, private route: ActivatedRoute, public router: Router) {
+    this.service = encuestaMusicaService;
   }
 
+  ngOnInit(): void {
+    this.service.listarEncuestaMusica().subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);
+      });
+  }
 }

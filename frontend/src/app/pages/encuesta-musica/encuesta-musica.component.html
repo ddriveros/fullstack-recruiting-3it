@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <b>Encuesta de Gustos Musicales</b>
+            <div class="btn-group pull-right">
+                <button class="btn btn-info" (click)="guardar()" [disabled]="!formGroup.valid">Guardar</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form [formGroup]="formGroup">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="EJ: test@3it.com" type="email" [email]="true"
+                                formControlName="email">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <section class="example-section">
+                            <mat-checkbox value="Rock" formControlName="Rock" (change)="obtenerValorChbx($event)">Rock
+                            </mat-checkbox>&nbsp;
+                            <mat-checkbox value="Pop" formControlName="Pop" (change)="obtenerValorChbx($event)">Pop
+                            </mat-checkbox>&nbsp;
+                            <mat-checkbox value="Jazz" formControlName="Jazz" (change)="obtenerValorChbx($event)">Jazz
+                            </mat-checkbox>&nbsp;
+                            <mat-checkbox value="Otros" formControlName="Otros" (change)="obtenerValorChbx($event)">
+                                Otros</mat-checkbox>
+                        </section>
+                    </div>
+                </div>
+            </form>
+
+            <app-table></app-table>
+        </div>
+    </div>
+</div>
